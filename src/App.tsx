@@ -1,25 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { Grid } from "@mui/material";
+import { SideMenu } from "./components/SideMenu";
+import { ThreeDView } from "./components/3d/ThreeDView";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Grid
+      container
+      sx={{ width: "100vw", height: "100vh" }}
+      justifyContent="stretch"
+    >
+      <Grid item xs={10}>
+        <ThreeDView />
+      </Grid>
+      <Grid item xs={2}>
+        <SideMenu />
+      </Grid>
+    </Grid>
   );
 }
 
