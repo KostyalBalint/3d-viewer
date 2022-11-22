@@ -4,13 +4,14 @@ import {
   Divider,
   FormControlLabel,
   Switch,
-  TextField,
   Typography,
 } from "@mui/material";
 import React from "react";
 import { useAppDispatch, useAppSelector } from "./hooks/hooks";
 import { menuSlice } from "../store/menuSlice";
 import { NumberField } from "./NumberField";
+import { CaptureButton } from "./CaptureButton";
+import { ImageViewer } from "./ImageViewer";
 
 export function SideMenu() {
   const dispatch = useAppDispatch();
@@ -88,6 +89,8 @@ export function SideMenu() {
         }}
         value={captureSphereRadius}
       />
+      <CaptureButton />
+      <ImageViewer />
     </Card>
   );
 }

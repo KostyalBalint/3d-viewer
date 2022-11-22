@@ -5,13 +5,15 @@ type MenuState = {
   showBasePlane: boolean;
   numberOfCapturePoints: number | null;
   captureSphereRadius: number | null;
+  isCapturing: boolean;
 };
 
 const initialState: MenuState = {
   fileName: "",
   showBasePlane: true,
-  numberOfCapturePoints: 100,
+  numberOfCapturePoints: 20,
   captureSphereRadius: 5,
+  isCapturing: false,
 };
 
 export const menuSlice = createSlice({
@@ -29,6 +31,9 @@ export const menuSlice = createSlice({
     },
     setCaptureSphereRadius: (state, action: PayloadAction<number | null>) => {
       state.captureSphereRadius = action.payload;
+    },
+    setIsCapturing: (state, action: PayloadAction<boolean>) => {
+      state.isCapturing = action.payload;
     },
   },
 });

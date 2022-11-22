@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { menuSlice } from "./menuSlice";
+import { imagesSlice } from "./imagesSlice";
 
 export const store = configureStore({
   reducer: {
     menu: menuSlice.reducer,
+    images: imagesSlice.reducer,
   },
 });
 
