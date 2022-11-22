@@ -5,10 +5,11 @@ import { useAppSelector } from "../hooks/hooks";
 
 export function BasePlane() {
   const show = useAppSelector((state) => state.menu.showBasePlane);
+  const isCapturing = useAppSelector((state) => state.menu.isCapturing);
   const size = 100;
   return (
     <>
-      {show && (
+      {show && !isCapturing && (
         <>
           <gridHelper args={[size, size]} position={[0, -0.01, 0]}>
             <meshBasicMaterial color="gray" side={DoubleSide} />

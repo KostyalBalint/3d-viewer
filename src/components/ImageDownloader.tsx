@@ -50,7 +50,6 @@ export function ImageDownloader() {
         color={"primary"}
         startIcon={<Download />}
         disabled={images.length === 0}
-        sx={{ my: 1 }}
         onClick={() => {
           saveZip("images.zip", images);
         }}

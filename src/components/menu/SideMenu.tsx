@@ -3,16 +3,19 @@ import {
   Card,
   Divider,
   FormControlLabel,
+  Paper,
+  Stack,
   Switch,
   Typography,
 } from "@mui/material";
 import React from "react";
-import { useAppDispatch, useAppSelector } from "./hooks/hooks";
-import { menuSlice } from "../store/menuSlice";
-import { NumberField } from "./NumberField";
-import { CaptureButton } from "./CaptureButton";
-import { ImageViewer } from "./ImageViewer";
-import { ImageDownloader } from "./ImageDownloader";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
+import { menuSlice } from "../../store/menuSlice";
+import { NumberField } from "../NumberField";
+import { CaptureButton } from "../CaptureButton";
+import { ImageViewer } from "../ImageViewer";
+import { ImageDownloader } from "../ImageDownloader";
+import { CameraSettings } from "./CameraSettings";
 
 export function SideMenu() {
   const dispatch = useAppDispatch();
@@ -105,9 +108,23 @@ export function SideMenu() {
         }}
         value={captureSphereRadius}
       />
-      <CaptureButton />
-      <ImageViewer />
-      <ImageDownloader />
+
+      <Typography variant="h6" textAlign="center" sx={{ mb: 2 }}>
+        Camera settings
+      </Typography>
+      <CameraSettings />
+
+      <Stack alignItems="stretch">
+        <CaptureButton />
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          sx={{ width: "100%" }}
+        >
+          <ImageViewer />
+          <ImageDownloader />
+        </Stack>
+      </Stack>
     </Card>
   );
 }

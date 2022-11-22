@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import React, { useRef } from "react";
-import { ACESFilmicToneMapping, Scene, sRGBEncoding } from "three";
+import { Scene, sRGBEncoding } from "three";
 import { Lights } from "./Lights";
 import { BasePlane } from "./BasePlane";
 import { Controls } from "./Controls";
@@ -15,8 +15,6 @@ export const ThreeDView = () => {
       gl={{
         antialias: true,
         outputEncoding: sRGBEncoding,
-        toneMapping: ACESFilmicToneMapping,
-        toneMappingExposure: 0.85,
         pixelRatio: window.devicePixelRatio,
       }}
       camera={{ position: [-4, 1.8, -3] }}

@@ -8,6 +8,7 @@ export const CapturePoints = () => {
   const showCapturePoints = useAppSelector(
     (state) => state.menu.showCapturePoints
   );
+  const isCapturing = useAppSelector((state) => state.menu.isCapturing);
 
   const arrows: { center: Vector3; dir: Vector3 }[] = generateCapturePoints(
     count,
@@ -20,6 +21,7 @@ export const CapturePoints = () => {
   return (
     <>
       {showCapturePoints &&
+        !isCapturing &&
         arrows.map((arrow) => (
           <arrowHelper
             args={[arrow.dir, arrow.center, length, hex]}

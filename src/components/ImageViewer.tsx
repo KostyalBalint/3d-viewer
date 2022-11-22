@@ -22,7 +22,7 @@ export function ImageViewer() {
         variant="contained"
         disabled={images.length === 0}
       >
-        Image preview
+        Preview
       </Button>
       <Modal
         open={open}

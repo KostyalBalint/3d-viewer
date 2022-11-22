@@ -7,6 +7,7 @@ type MenuState = {
   numberOfCapturePoints: number | null;
   captureSphereRadius: number | null;
   isCapturing: boolean;
+  cameraType: "perspective" | "orthographic";
 };
 
 const initialState: MenuState = {
@@ -16,6 +17,7 @@ const initialState: MenuState = {
   numberOfCapturePoints: 20,
   captureSphereRadius: 5,
   isCapturing: false,
+  cameraType: "perspective",
 };
 
 export const menuSlice = createSlice({
@@ -39,6 +41,12 @@ export const menuSlice = createSlice({
     },
     setIsCapturing: (state, action: PayloadAction<boolean>) => {
       state.isCapturing = action.payload;
+    },
+    setCameraType: (
+      state,
+      action: PayloadAction<"perspective" | "orthographic">
+    ) => {
+      state.cameraType = action.payload;
     },
   },
 });
