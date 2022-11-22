@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type MenuState = {
   fileName: string;
+  showBasePlane: boolean;
 };
 
 const initialState: MenuState = {
   fileName: "",
+  showBasePlane: true,
 };
 
 export const menuSlice = createSlice({
@@ -14,6 +16,9 @@ export const menuSlice = createSlice({
   reducers: {
     setFileName: (state, action: PayloadAction<string>) => {
       state.fileName = action.payload;
+    },
+    setShowBasePlane: (state, action: PayloadAction<boolean>) => {
+      state.showBasePlane = action.payload;
     },
   },
 });

@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Card,
   Divider,
@@ -13,11 +12,16 @@ import { menuSlice } from "../store/menuSlice";
 
 export function SideMenu() {
   const dispatch = useAppDispatch();
+  const fileName = useAppSelector((state) => state.menu.fileName);
+  const showBasePlane = useAppSelector((state) => state.menu.showBasePlane);
 
   const setFileName = (fileName: string) => {
     dispatch(menuSlice.actions.setFileName(fileName));
   };
-  const fileName = useAppSelector((state) => state.menu.fileName);
+
+  const setShowBasePlane = (showBasePlane: boolean) => {
+    dispatch(menuSlice.actions.setShowBasePlane(showBasePlane));
+  };
 
   return (
     <Card elevation={2} sx={{ height: "100%", p: 2 }}>
@@ -44,6 +48,10 @@ export function SideMenu() {
       <Divider />
 
       <FormControlLabel
+        value={showBasePlane}
+        onChange={(event, showBasePlane) => {
+          setShowBasePlane(showBasePlane);
+        }}
         control={<Switch defaultChecked />}
         label="Show baseplane"
       />

@@ -11,10 +11,10 @@ function App() {
       sx={{ width: "100vw", height: "100vh" }}
       justifyContent="stretch"
     >
-      <Grid item xs={10}>
+      <Grid item xs={7} md={9} lg={10}>
         <ThreeDView />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={5} md={3} lg={2}>
         <SideMenu />
       </Grid>
     </Grid>
