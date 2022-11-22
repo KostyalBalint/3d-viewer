@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 type MenuState = {
   fileName: string;
   showBasePlane: boolean;
+  showCapturePoints: boolean;
   numberOfCapturePoints: number | null;
   captureSphereRadius: number | null;
   isCapturing: boolean;
@@ -11,6 +12,7 @@ type MenuState = {
 const initialState: MenuState = {
   fileName: "",
   showBasePlane: true,
+  showCapturePoints: false,
   numberOfCapturePoints: 20,
   captureSphereRadius: 5,
   isCapturing: false,
@@ -25,6 +27,9 @@ export const menuSlice = createSlice({
     },
     setShowBasePlane: (state, action: PayloadAction<boolean>) => {
       state.showBasePlane = action.payload;
+    },
+    setShowCapturePoints: (state, action: PayloadAction<boolean>) => {
+      state.showCapturePoints = action.payload;
     },
     setNumberOfCapturePoints: (state, action: PayloadAction<number | null>) => {
       state.numberOfCapturePoints = action.payload;

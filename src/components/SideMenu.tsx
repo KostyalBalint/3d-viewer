@@ -18,6 +18,9 @@ export function SideMenu() {
   const dispatch = useAppDispatch();
   const fileName = useAppSelector((state) => state.menu.fileName);
   const showBasePlane = useAppSelector((state) => state.menu.showBasePlane);
+  const showCapturePoints = useAppSelector(
+    (state) => state.menu.showCapturePoints
+  );
   const numberOfCapturePoints = useAppSelector(
     (state) => state.menu.numberOfCapturePoints
   );
@@ -31,6 +34,10 @@ export function SideMenu() {
 
   const setShowBasePlane = (showBasePlane: boolean) => {
     dispatch(menuSlice.actions.setShowBasePlane(showBasePlane));
+  };
+
+  const setShowCapturePoints = (showCapturePoints: boolean) => {
+    dispatch(menuSlice.actions.setShowCapturePoints(showCapturePoints));
   };
 
   return (
@@ -62,11 +69,19 @@ export function SideMenu() {
 
       <FormControlLabel
         value={showBasePlane}
-        onChange={(event, showBasePlane) => {
-          setShowBasePlane(showBasePlane);
+        onChange={(event, value) => {
+          setShowBasePlane(value);
         }}
         control={<Switch defaultChecked />}
         label="Show baseplane"
+      />
+      <FormControlLabel
+        value={showCapturePoints}
+        onChange={(event, value) => {
+          setShowCapturePoints(value);
+        }}
+        control={<Switch />}
+        label="Show capture points"
       />
 
       <Divider sx={{ my: 2 }} />
