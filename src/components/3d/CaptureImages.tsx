@@ -33,7 +33,7 @@ export const CaptureImages = () => {
       renderer.setSize(400, 400);
 
       dispatch(imagesSlice.actions.clearImages());
-      points.forEach((point) => {
+      points.forEach((point, index) => {
         //Move the camera to the point
         if (scene) {
           new Promise(() => {
@@ -45,8 +45,12 @@ export const CaptureImages = () => {
             renderer.domElement.toBlob(
               (blob) => {
                 if (blob) {
-                  const url = URL.createObjectURL(blob);
-                  dispatch(imagesSlice.actions.addImage(url));
+                  dispatch(
+                    imagesSlice.actions.addImage({
+                      uri: URL.createObjectURL(blob),
+                      name: `image_${index}`,
+                    })
+                  );
                 }
               },
               "image/png",

@@ -1,6 +1,14 @@
 import { useAppSelector } from "./hooks/hooks";
-import { Button, Card, ImageList, ImageListItem, Modal } from "@mui/material";
+import {
+  Button,
+  Card,
+  ImageList,
+  ImageListItem,
+  Modal,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
+import { Preview } from "@mui/icons-material";
 
 export function ImageViewer() {
   const images = useAppSelector((state) => state.images.images);
@@ -9,6 +17,7 @@ export function ImageViewer() {
     <>
       <Button
         onClick={() => setOpen(true)}
+        startIcon={<Preview />}
         color="primary"
         variant="contained"
         disabled={images.length === 0}
@@ -33,8 +42,11 @@ export function ImageViewer() {
         >
           <ImageList variant="masonry" cols={5} gap={2}>
             {images.map((img) => (
-              <ImageListItem key={img}>
-                <img src={img} alt="" loading="lazy" />
+              <ImageListItem key={img.name}>
+                <img src={img.uri} alt="" loading="lazy" />
+                <Typography variant="caption" textAlign="center">
+                  {img.name}
+                </Typography>
               </ImageListItem>
             ))}
           </ImageList>

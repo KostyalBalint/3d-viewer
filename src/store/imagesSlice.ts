@@ -1,7 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export type GeneratedImage = {
+  uri: string;
+  name: string;
+};
+
 type ImagesState = {
-  images: string[];
+  images: GeneratedImage[];
 };
 
 const initialState: ImagesState = {
@@ -12,7 +17,7 @@ export const imagesSlice = createSlice({
   name: "images",
   initialState: initialState,
   reducers: {
-    addImage: (state, action: PayloadAction<string>) => {
+    addImage: (state, action: PayloadAction<GeneratedImage>) => {
       state.images.push(action.payload);
     },
     clearImages: (state) => {

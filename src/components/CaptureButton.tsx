@@ -12,7 +12,7 @@ export function CaptureButton() {
     <Button
       variant="contained"
       color={isCapturing ? "error" : "success"}
-      endIcon={isCapturing ? <PauseSharp /> : <PlayArrow />}
+      startIcon={isCapturing ? <PauseSharp /> : <PlayArrow />}
       sx={{ my: 1 }}
       onClick={() => {
         dispatch(menuSlice.actions.setIsCapturing(!isCapturing));

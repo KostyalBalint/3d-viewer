@@ -12,6 +12,7 @@ import { menuSlice } from "../store/menuSlice";
 import { NumberField } from "./NumberField";
 import { CaptureButton } from "./CaptureButton";
 import { ImageViewer } from "./ImageViewer";
+import { ImageDownloader } from "./ImageDownloader";
 
 export function SideMenu() {
   const dispatch = useAppDispatch();
@@ -91,6 +92,7 @@ export function SideMenu() {
       />
       <CaptureButton />
       <ImageViewer />
+      <ImageDownloader />
     </Card>
   );
 }

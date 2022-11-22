@@ -3,7 +3,6 @@ import "./App.css";
 import { Grid } from "@mui/material";
 import { SideMenu } from "./components/SideMenu";
 import { ThreeDView } from "./components/3d/ThreeDView";
-import { ImageViewer } from "./components/ImageViewer";
 
 function App() {
   return (
