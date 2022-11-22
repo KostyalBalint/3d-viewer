@@ -5,6 +5,7 @@ import { Lights } from "./Lights";
 import { BasePlane } from "./BasePlane";
 import { Controls } from "./Controls";
 import { LoadedModel } from "./LoadedModel";
+import { CapturePoints } from "./CapturePoints";
 
 export const ThreeDView = () => {
   return (
@@ -20,6 +21,7 @@ export const ThreeDView = () => {
       <scene>
         <Lights />
 
+        <CapturePoints />
         <LoadedModel />
 
         <BasePlane />

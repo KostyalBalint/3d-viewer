@@ -4,16 +4,24 @@ import {
   Divider,
   FormControlLabel,
   Switch,
+  TextField,
   Typography,
 } from "@mui/material";
 import React from "react";
 import { useAppDispatch, useAppSelector } from "./hooks/hooks";
 import { menuSlice } from "../store/menuSlice";
+import { NumberField } from "./NumberField";
 
 export function SideMenu() {
   const dispatch = useAppDispatch();
   const fileName = useAppSelector((state) => state.menu.fileName);
   const showBasePlane = useAppSelector((state) => state.menu.showBasePlane);
+  const numberOfCapturePoints = useAppSelector(
+    (state) => state.menu.numberOfCapturePoints
+  );
+  const captureSphereRadius = useAppSelector(
+    (state) => state.menu.captureSphereRadius
+  );
 
   const setFileName = (fileName: string) => {
     dispatch(menuSlice.actions.setFileName(fileName));
@@ -26,7 +34,7 @@ export function SideMenu() {
   return (
     <Card elevation={2} sx={{ height: "100%", p: 2 }}>
       <Typography variant="h5" textAlign="center" sx={{ mb: 2 }}>
-        Upload a file
+        Load a file
       </Typography>
 
       <Button variant="contained" component="label">
@@ -45,7 +53,10 @@ export function SideMenu() {
         {fileName}
       </Typography>
 
-      <Divider />
+      <Divider sx={{ my: 2 }} />
+      <Typography variant="h5" textAlign="center" sx={{ mb: 2 }}>
+        Visibility
+      </Typography>
 
       <FormControlLabel
         value={showBasePlane}
@@ -54,6 +65,28 @@ export function SideMenu() {
         }}
         control={<Switch defaultChecked />}
         label="Show baseplane"
+      />
+
+      <Divider sx={{ my: 2 }} />
+      <Typography variant="h5" textAlign="center" sx={{ mb: 2 }}>
+        Image capture
+      </Typography>
+
+      <NumberField
+        sx={{ my: 1 }}
+        label="Number of capture points"
+        onChange={(value) => {
+          dispatch(menuSlice.actions.setNumberOfCapturePoints(value ?? null));
+        }}
+        value={numberOfCapturePoints}
+      />
+      <NumberField
+        sx={{ my: 1 }}
+        label="Capture sphere radius"
+        onChange={(value) => {
+          dispatch(menuSlice.actions.setCaptureSphereRadius(value ?? null));
+        }}
+        value={captureSphereRadius}
       />
     </Card>
   );
