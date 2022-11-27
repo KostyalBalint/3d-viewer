@@ -4,6 +4,7 @@ import React from "react";
 import { useAppSelector } from "./hooks/hooks";
 import JSZip from "jszip";
 import { GeneratedImage } from "../store/imagesSlice";
+import { SxProps } from "@mui/system";
 
 const saveZip = (filename: string, images: GeneratedImage[]) => {
   const zip = new JSZip();
@@ -41,21 +42,20 @@ function saveAs(blob: Blob, filename: string) {
   }
 }
 
-export function ImageDownloader() {
+export function ImageDownloader(props: { sx?: SxProps }) {
   const images = useAppSelector((state) => state.images.images);
   return (
-    <>
-      <Button
-        variant="contained"
-        color={"primary"}
-        startIcon={<Download />}
-        disabled={images.length === 0}
-        onClick={() => {
-          saveZip("images.zip", images);
-        }}
-      >
-        Download
-      </Button>
-    </>
+    <Button
+      variant="contained"
+      color={"primary"}
+      startIcon={<Download />}
+      disabled={images.length === 0}
+      onClick={() => {
+        saveZip("images.zip", images);
+      }}
+      sx={props.sx}
+    >
+      Download
+    </Button>
   );
 }

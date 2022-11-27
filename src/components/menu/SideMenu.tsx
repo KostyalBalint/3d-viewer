@@ -3,7 +3,6 @@ import {
   Card,
   Divider,
   FormControlLabel,
-  Paper,
   Stack,
   Switch,
   Typography,
@@ -92,22 +91,24 @@ export function SideMenu() {
         Image capture
       </Typography>
 
-      <NumberField
-        sx={{ my: 1 }}
-        label="Number of capture points"
-        onChange={(value) => {
-          dispatch(menuSlice.actions.setNumberOfCapturePoints(value ?? null));
-        }}
-        value={numberOfCapturePoints}
-      />
-      <NumberField
-        sx={{ my: 1 }}
-        label="Capture sphere radius"
-        onChange={(value) => {
-          dispatch(menuSlice.actions.setCaptureSphereRadius(value ?? null));
-        }}
-        value={captureSphereRadius}
-      />
+      <Stack direction="row">
+        <NumberField
+          sx={{ my: 1 }}
+          label="Capture point count"
+          onChange={(value) => {
+            dispatch(menuSlice.actions.setNumberOfCapturePoints(value ?? null));
+          }}
+          value={numberOfCapturePoints}
+        />
+        <NumberField
+          sx={{ my: 1 }}
+          label="Capture sphere radius"
+          onChange={(value) => {
+            dispatch(menuSlice.actions.setCaptureSphereRadius(value ?? null));
+          }}
+          value={captureSphereRadius}
+        />
+      </Stack>
 
       <Typography variant="h6" textAlign="center" sx={{ mb: 2 }}>
         Camera settings
@@ -118,11 +119,12 @@ export function SideMenu() {
         <CaptureButton />
         <Stack
           direction="row"
-          justifyContent="space-between"
+          justifyContent="stretch"
+          gap={1}
           sx={{ width: "100%" }}
         >
-          <ImageViewer />
-          <ImageDownloader />
+          <ImageViewer sx={{ width: "100%" }} />
+          <ImageDownloader sx={{ width: "100%" }} />
         </Stack>
       </Stack>
     </Card>
