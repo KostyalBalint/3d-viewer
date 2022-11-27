@@ -67,7 +67,9 @@ export function ImageViewer(props: { sx?: SxProps }) {
                 ))}
               </ImageList>
             </Card>
-            <Card sx={{ p: 2, width: "100%", height: "100%" }}>
+            <Card
+              sx={{ p: 2, width: "100%", overflow: "scroll", height: "75vh" }}
+            >
               <Typography variant="h6" textAlign="center">
                 Camera transformations
               </Typography>

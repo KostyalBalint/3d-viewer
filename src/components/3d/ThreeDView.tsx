@@ -6,7 +6,7 @@ import { BasePlane } from "./BasePlane";
 import { Controls } from "./Controls";
 import { LoadedModel } from "./LoadedModel";
 import { CapturePoints } from "./CapturePoints";
-import { CaptureImages } from "./CaptureImages";
+import { GenerateImages } from "./GenerateImages";
 
 export const ThreeDView = () => {
   const sceneRef = useRef<Scene>(null);
@@ -27,7 +27,7 @@ export const ThreeDView = () => {
 
         <BasePlane />
 
-        <CaptureImages />
+        <GenerateImages />
         <Controls />
       </scene>
     </Canvas>

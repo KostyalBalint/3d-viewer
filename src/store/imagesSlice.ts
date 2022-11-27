@@ -7,24 +7,24 @@ export type GeneratedImage = {
 
 type Frame = {
   file_path: string;
-  sharpness: number;
+  sharpness: number; // ~30
   transform_matrix: number[][]; // 4x4 matrix
 };
 
 export type CameraTransform = {
-  camera_angle_x: number;
-  camera_angle_y: number;
-  fl_x: number;
-  fl_y: number;
-  k1: number;
-  k2: number;
-  p1: number;
-  p2: number;
-  cx: number;
-  cy: number;
-  w: number;
-  h: number;
-  aabb_scale: number;
+  camera_angle_x: number; // 0.7481849417937728,
+  camera_angle_y: number; // 1.2193576119562444,
+  fl_x: number; // 1375.52,
+  fl_y: number; // 1374.49,
+  k1: number; // 0.0578421,
+  k2: number; //-0.0805099,
+  p1: number; //-0.000980296,
+  p2: number; // 0.00015575,
+  cx: number; // 554.558,
+  cy: number; // 965.268,
+  w: number; // 1080.0,
+  h: number; // 1920.0,
+  aabb_scale: number; // 4
 };
 
 export type CameraTransforms = CameraTransform & {

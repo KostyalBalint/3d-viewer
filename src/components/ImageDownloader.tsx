@@ -3,10 +3,14 @@ import { Button } from "@mui/material";
 import React from "react";
 import { useAppSelector } from "./hooks/hooks";
 import JSZip from "jszip";
-import { GeneratedImage } from "../store/imagesSlice";
+import { CameraTransforms, GeneratedImage } from "../store/imagesSlice";
 import { SxProps } from "@mui/system";
 
-const saveZip = (filename: string, images: GeneratedImage[]) => {
+const saveZip = (
+  filename: string,
+  images: GeneratedImage[],
+  transforms: CameraTransforms
+) => {
   const zip = new JSZip();
   const folder = zip.folder("files"); // folder name where all files will be placed in
 
@@ -20,6 +24,10 @@ const saveZip = (filename: string, images: GeneratedImage[]) => {
       folder.file(name, blobPromise);
     }
   });
+
+  if (folder) {
+    folder.file("transforms.json", JSON.stringify(transforms));
+  }
 
   zip.generateAsync({ type: "blob" }).then((blob) => saveAs(blob, filename));
 };
@@ -44,6 +52,7 @@ function saveAs(blob: Blob, filename: string) {
 
 export function ImageDownloader(props: { sx?: SxProps }) {
   const images = useAppSelector((state) => state.images.images);
+  const transforms = useAppSelector((state) => state.images.transforms);
   return (
     <Button
       variant="contained"
@@ -51,7 +60,7 @@ export function ImageDownloader(props: { sx?: SxProps }) {
       startIcon={<Download />}
       disabled={images.length === 0}
       onClick={() => {
-        saveZip("images.zip", images);
+        saveZip("images.zip", images, transforms);
       }}
       sx={props.sx}
     >
