@@ -67,6 +67,9 @@ export function SideMenu() {
           onChange={(event) => setFileName(event.target.value as string)}
         >
           <MenuItem value={"ferrari.glb"}>Ferrari</MenuItem>
+          <MenuItem value={"Duck.glb"}>Duck</MenuItem>
+          <MenuItem value={"Avocado.glb"}>Avocado</MenuItem>
+          <MenuItem value={"Fox.glb"}>Fox</MenuItem>
         </Select>
       </FormControl>
 
