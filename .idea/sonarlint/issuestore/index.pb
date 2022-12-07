@@ -17,5 +17,3 @@ V
 &src/components/menu/CameraSettings.tsx,a/9/a9bb5cb81a8c32f45c7e8c2e4a56de0a1b80d797
 N
 src/components/ImageViewer.tsx,1/8/18c122939d511476f2bb51dcde09109acaa436d2
-S
-#src/components/3d/CapturePoints.tsx,0/e/0e833b2ac4eefdcd1b5b91c08b2d74cebb7cf7dc

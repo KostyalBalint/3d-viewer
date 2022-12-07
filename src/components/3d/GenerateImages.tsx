@@ -1,6 +1,12 @@
 import { generateCapturePoints } from "../../utils/GenerateCapturePoints";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { PerspectiveCamera, Vector2, WebGLRenderer } from "three";
+import {
+  Euler,
+  Matrix4,
+  PerspectiveCamera,
+  Vector2,
+  WebGLRenderer,
+} from "three";
 import { useThree } from "@react-three/fiber";
 import { imagesSlice } from "../../store/imagesSlice";
 import { useEffect } from "react";
@@ -25,18 +31,19 @@ export const GenerateImages = () => {
   ) => {
     const size = new Vector2();
     renderer.getSize(size);
+    console.log(renderer);
     dispatch(
       imagesSlice.actions.setTransforms({
         camera_angle_x: camera.fov * (Math.PI / 180),
         camera_angle_y: camera.fov * (Math.PI / 180),
-        fl_x: 1375.52,
-        fl_y: 1374.49,
-        k1: 0.0578421,
-        k2: 0.0805099,
-        p1: 0.000980296,
-        p2: 0.00015575,
-        cx: 554.558,
-        cy: 965.268,
+        fl_x: size.x * (camera.getFocalLength() / 35),
+        fl_y: size.y * (camera.getFocalLength() / 35),
+        k1: 0,
+        k2: 0,
+        p1: 0,
+        p2: 0,
+        cx: size.x / 2,
+        cy: size.y / 2,
         w: size.x,
         h: size.y,
         aabb_scale: 4,
@@ -75,10 +82,10 @@ export const GenerateImages = () => {
       const points = generateCapturePoints(pointCount, captureSphereRadius);
 
       const renderer = new WebGLRenderer({
-        antialias: true,
+        alpha: true,
       });
       renderer.setSize(800, 800);
-      renderer.setClearColor(0xffffff, 1);
+      renderer.setClearColor(0xffffff, 0);
 
       setCameraTransforms(camera, renderer);
 
@@ -97,9 +104,11 @@ export const GenerateImages = () => {
           renderer.render(scene, camera);
 
           //TODO: 1.st try: only the z is flipped
-          camera.lookAt(point.dir.x, point.dir.y, point.dir.z * -1);
 
-          addFrame(fileName, camera.matrix.toArray());
+          //camera.lookAt(point.dir.x * -1, point.dir.y * -1, point.dir.z * -1);
+          camera.updateMatrix();
+
+          addFrame(fileName, getCameraMatrixTransformd(camera));
           //Save the image
           renderer.domElement.toBlob(
             (blob) => {
@@ -124,3 +133,37 @@ export const GenerateImages = () => {
 
   return <></>;
 };
+
+function getCameraMatrixTransformd(camera: PerspectiveCamera): number[] {
+  let matrix = camera.matrix.clone();
+
+  const wordRotate = new Matrix4().makeRotationFromEuler(
+    new Euler().set(-Math.PI / 2, -Math.PI / 2, 0, "ZYX")
+  );
+
+  matrix.premultiply(wordRotate.clone().invert()).multiply(wordRotate);
+
+  const mtx = matrix.toArray();
+
+  return [
+    mtx[4],
+    mtx[5],
+    mtx[6],
+    mtx[7],
+
+    mtx[8],
+    mtx[9],
+    mtx[10],
+    mtx[11],
+
+    mtx[0],
+    mtx[1],
+    mtx[2],
+    mtx[3],
+
+    mtx[12],
+    mtx[13],
+    mtx[14],
+    mtx[15],
+  ];
+}

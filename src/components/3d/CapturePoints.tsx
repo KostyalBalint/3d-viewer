@@ -1,6 +1,7 @@
-import { Vector3 } from "three";
+import { Object3D, Vector3 } from "three";
 import { useAppSelector } from "../hooks/hooks";
 import { generateCapturePoints } from "../../utils/GenerateCapturePoints";
+import { MatrixHelper } from "./MatrixHelper";
 
 export const CapturePoints = () => {
   const count = useAppSelector((state) => state.menu.numberOfCapturePoints);
@@ -16,18 +17,20 @@ export const CapturePoints = () => {
   );
 
   const length = 1;
-  const hex = 0xff0000;
 
   return (
     <>
       {showCapturePoints &&
         !isCapturing &&
-        arrows.map((arrow) => (
-          <arrowHelper
-            args={[arrow.dir, arrow.center, length, hex]}
-            key={arrow.center.x + arrow.center.y + arrow.center.z}
-          />
-        ))}
+        arrows.map((arrow) => {
+          const camera = new Object3D();
+          camera.position.set(arrow.center.x, arrow.center.y, arrow.center.z);
+          console.log(arrow.dir);
+          camera.lookAt(arrow.dir.x, arrow.dir.y, arrow.dir.z);
+          camera.updateMatrix();
+
+          return <MatrixHelper matrix={camera.matrix} length={length} />;
+        })}
     </>
   );
 };
