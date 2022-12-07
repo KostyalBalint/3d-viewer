@@ -9,15 +9,8 @@ P
 src/App.tsx,8/3/835da56f32df714aaed6285a5b7fc3a7807851e4
 L
 src/components/3d/Lights.tsx,9/a/9a80f5522ff0c8bed52e41bd016c7aca26e4372f
-:
-
-.gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
 N
 src/components/3d/Controls.tsx,6/9/69eeb5d870ff926fa81d566953676118553bd5b3
-9
-	yarn.lock,5/3/53585a096fe3a3b96321113856ae62602995a33b
-<
-package.json,7/0/7030d0b2f71b999ff89a343de08c414af32fc93a
 R
 "src/components/ImageDownloader.tsx,3/e/3e3cb1b319f40d43bea0ba564d8b346849572536
 V

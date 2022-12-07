@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   Divider,
   FormControl,
@@ -18,7 +17,6 @@ import { menuSlice } from "../../store/menuSlice";
 import { CaptureButton } from "../CaptureButton";
 import { ImageViewer } from "../ImageViewer";
 import { ImageDownloader } from "../ImageDownloader";
-import { CameraSettings } from "./CameraSettings";
 
 export function SideMenu() {
   const dispatch = useAppDispatch();
@@ -33,7 +31,6 @@ export function SideMenu() {
   const captureSphereRadius = useAppSelector(
     (state) => state.menu.captureSphereRadius
   );
-  const showCamPoints = useAppSelector((state) => state.menu.showCamPoints);
 
   const setFileName = (fileName: string) => {
     dispatch(menuSlice.actions.setFileName(fileName));
@@ -45,10 +42,6 @@ export function SideMenu() {
 
   const setShowCapturePoints = (showCapturePoints: boolean) => {
     dispatch(menuSlice.actions.setShowCapturePoints(showCapturePoints));
-  };
-
-  const setShowCamPoints = (showCamPoints: boolean) => {
-    dispatch(menuSlice.actions.setShowCamPoints(showCamPoints));
   };
 
   return (

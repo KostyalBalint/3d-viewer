@@ -5,7 +5,7 @@ import { Box3, Vector3 } from "three";
 
 export function LoadedModel() {
   const fileName = useAppSelector((state) => state.menu.fileName);
-  const rawModel = useGLTF(`/assets/${fileName}`, true);
+  const rawModel = useGLTF(`${window.location.href}/assets/${fileName}`, true);
   const model = rawModel.scene;
 
   //Scale the model to fit in the unit cube
