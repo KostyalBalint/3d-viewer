@@ -2,7 +2,12 @@ import {
   Button,
   Card,
   Divider,
+  FormControl,
   FormControlLabel,
+  InputLabel,
+  MenuItem,
+  Select,
+  Slider,
   Stack,
   Switch,
   Typography,
@@ -10,7 +15,6 @@ import {
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { menuSlice } from "../../store/menuSlice";
-import { NumberField } from "../NumberField";
 import { CaptureButton } from "../CaptureButton";
 import { ImageViewer } from "../ImageViewer";
 import { ImageDownloader } from "../ImageDownloader";
@@ -29,6 +33,7 @@ export function SideMenu() {
   const captureSphereRadius = useAppSelector(
     (state) => state.menu.captureSphereRadius
   );
+  const showCamPoints = useAppSelector((state) => state.menu.showCamPoints);
 
   const setFileName = (fileName: string) => {
     dispatch(menuSlice.actions.setFileName(fileName));
@@ -42,27 +47,28 @@ export function SideMenu() {
     dispatch(menuSlice.actions.setShowCapturePoints(showCapturePoints));
   };
 
+  const setShowCamPoints = (showCamPoints: boolean) => {
+    dispatch(menuSlice.actions.setShowCamPoints(showCamPoints));
+  };
+
   return (
     <Card elevation={2} sx={{ height: "100%", p: 2 }}>
       <Typography variant="h5" textAlign="center" sx={{ mb: 2 }}>
-        Load a file
+        Select a model
       </Typography>
 
-      <Button variant="contained" component="label">
-        Select File
-        <input
-          type="file"
-          hidden
-          accept=".glb, .gltf"
-          onChange={({ target }) =>
-            target.files && target.files[0] && setFileName(target.files[0].name)
-          }
-        />
-      </Button>
-
-      <Typography variant="h5" textAlign="center" sx={{ mb: 2 }}>
-        {fileName}
-      </Typography>
+      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+        <InputLabel id="demo-select-small">Model</InputLabel>
+        <Select
+          labelId="demo-select-small"
+          id="demo-select-small"
+          value={fileName}
+          label="Age"
+          onChange={(event) => setFileName(event.target.value as string)}
+        >
+          <MenuItem value={"ferrari.glb"}>Ferrari</MenuItem>
+        </Select>
+      </FormControl>
 
       <Divider sx={{ my: 2 }} />
       <Typography variant="h5" textAlign="center" sx={{ mb: 2 }}>
@@ -92,28 +98,43 @@ export function SideMenu() {
       </Typography>
 
       <Stack direction="row">
-        <NumberField
-          sx={{ my: 1 }}
-          label="Capture point count"
-          onChange={(value) => {
-            dispatch(menuSlice.actions.setNumberOfCapturePoints(value ?? null));
-          }}
-          value={numberOfCapturePoints}
-        />
-        <NumberField
-          sx={{ my: 1 }}
-          label="Capture sphere radius"
-          onChange={(value) => {
-            dispatch(menuSlice.actions.setCaptureSphereRadius(value ?? null));
-          }}
-          value={captureSphereRadius}
-        />
+        <Stack spacing={2}>
+          <Typography variant="body1" sx={{ mr: 2 }}>
+            Capture point count
+          </Typography>
+          <Slider
+            size="small"
+            defaultValue={70}
+            aria-label="Small"
+            valueLabelDisplay="auto"
+            value={numberOfCapturePoints ?? 0}
+            max={500}
+            min={10}
+            onChange={(event, value) => {
+              if (typeof value === "number") {
+                dispatch(menuSlice.actions.setNumberOfCapturePoints(value));
+              }
+            }}
+          />
+          <Typography variant="body1" sx={{ mr: 2 }}>
+            Capture sphere radius
+          </Typography>
+          <Slider
+            size="small"
+            defaultValue={5}
+            aria-label="Small"
+            valueLabelDisplay="auto"
+            value={captureSphereRadius ?? 0}
+            max={10}
+            min={2}
+            onChange={(event, value) => {
+              if (typeof value === "number") {
+                dispatch(menuSlice.actions.setCaptureSphereRadius(value));
+              }
+            }}
+          />
+        </Stack>
       </Stack>
-
-      <Typography variant="h6" textAlign="center" sx={{ mb: 2 }}>
-        Camera settings
-      </Typography>
-      <CameraSettings />
 
       <Stack alignItems="stretch">
         <CaptureButton />

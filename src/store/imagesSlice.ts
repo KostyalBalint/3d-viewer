@@ -65,6 +65,7 @@ export const imagesSlice = createSlice({
     },
     clearImages: (state) => {
       state.images = [];
+      state.transforms.frames = [];
     },
     setTransforms: (state, action: PayloadAction<CameraTransform>) => {
       state.transforms = { ...action.payload, frames: state.transforms.frames };

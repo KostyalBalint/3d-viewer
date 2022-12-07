@@ -6,14 +6,16 @@ type MenuState = {
   showCapturePoints: boolean;
   numberOfCapturePoints: number | null;
   captureSphereRadius: number | null;
+  showCamPoints: boolean;
   isCapturing: boolean;
   cameraType: "perspective" | "orthographic";
 };
 
 const initialState: MenuState = {
-  fileName: "",
+  fileName: "ferrari.glb",
   showBasePlane: true,
   showCapturePoints: false,
+  showCamPoints: false,
   numberOfCapturePoints: 20,
   captureSphereRadius: 5,
   isCapturing: false,
@@ -47,6 +49,9 @@ export const menuSlice = createSlice({
       action: PayloadAction<"perspective" | "orthographic">
     ) => {
       state.cameraType = action.payload;
+    },
+    setShowCamPoints: (state, action: PayloadAction<boolean>) => {
+      state.showCamPoints = action.payload;
     },
   },
 });

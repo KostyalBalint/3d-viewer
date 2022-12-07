@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="pong-canvas" width="400" height="300"></canvas>
+
+</body>
+<script>
+    // Set up the canvas
+    var canvas = document.getElementById("pong-canvas");
+    var ctx = canvas.getContext("2d");
+
+    // Set up the game variables
+    var ballX = canvas.width / 2;
+    var ballY = canvas.height / 2;
+    var ballRadius = 10;
+    var ballSpeedX = 5;
+    var ballSpeedY = 5;
+
+    var paddleWidth = 10;
+    var paddleHeight = 75;
+    var paddleX = canvas.width - paddleWidth;
+    var paddleY = (canvas.height - paddleHeight) / 2;
+
+    var score = 0;
+
+    // This function is called repeatedly to animate the game
+    function animate() {
+        requestAnimationFrame(animate);
+
+        // Clear the canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw the ball
+        ctx.beginPath();
+        ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2);
+        ctx.fillStyle = "#ffffff";
+        ctx.fill();
+        ctx.closePath();
+
+        // Move the ball
+        ballX += ballSpeedX;
+        ballY += ballSpeedY;
+
+        // Check for collisions with the wall
+        if (ballX + ballRadius > canvas.width || ballX - ballRadius < 0) {
+            ballSpeedX *= -1;
+        }
+        if (ballY + ballRadius > canvas.height || ballY - ballRadius < 0) {
+            ballSpeedY *= -1;
+        }
+
+        // Draw the paddle
+        ctx.beginPath();
+        ctx.rect(paddleX, paddleY, paddleWidth, paddleHeight);
+        ctx.fillStyle = "#ffffff";
+        ctx.fill();
+        ctx.closePath();
+
+        // Move the paddle
+        if (paddleY + paddleHeight / 2 < ballY) {
+            paddleY += 5;
+        } else {
+            paddleY -= 5;
+        }
+
+        // Check for a collision with the paddle
+        if (
+            ballX + ballRadius > paddleX &&
+            ballY + ballRadius > paddleY &&
+            ballY - ballRadius < paddleY + paddleHeight
+        ) {
+            ballSpeedX *= -1;
+            score++;
+        }
+
+        // Draw the score
+        ctx.font = "16px Arial";
+        ctx.fillStyle = "#ffffff";
+        ctx.fillText("Score: " + score, 8, 20);
+    }
+
+    // Start the game
+    animate();
+
+</script>
+</html>

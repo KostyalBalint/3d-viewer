@@ -22,6 +22,7 @@ export function BasePlane() {
           >
             <meshStandardMaterial attach="material" color="white" />
           </Plane>
+          <axesHelper args={[5]} />
         </>
       )}
     </>

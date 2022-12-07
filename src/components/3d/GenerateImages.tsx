@@ -27,8 +27,8 @@ export const GenerateImages = () => {
     renderer.getSize(size);
     dispatch(
       imagesSlice.actions.setTransforms({
-        camera_angle_x: camera.rotation.x,
-        camera_angle_y: camera.rotation.y,
+        camera_angle_x: camera.fov * (Math.PI / 180),
+        camera_angle_y: camera.fov * (Math.PI / 180),
         fl_x: 1375.52,
         fl_y: 1374.49,
         k1: 0.0578421,
@@ -45,11 +45,12 @@ export const GenerateImages = () => {
   };
   const addFrame = (filePath: string, cameraMatrix: number[]) => {
     //Convert 16 element array to 4x4 matrix
+    //Transpose the matrix
     const cameraMatrix4x4: number[][] = [
-      [cameraMatrix[12], cameraMatrix[13], cameraMatrix[14], cameraMatrix[15]],
-      [cameraMatrix[8], cameraMatrix[9], cameraMatrix[10], cameraMatrix[11]],
-      [cameraMatrix[4], cameraMatrix[5], cameraMatrix[6], cameraMatrix[7]],
-      [cameraMatrix[0], cameraMatrix[1], cameraMatrix[2], cameraMatrix[3]],
+      [cameraMatrix[0], cameraMatrix[4], cameraMatrix[8], cameraMatrix[12]],
+      [cameraMatrix[1], cameraMatrix[5], cameraMatrix[9], cameraMatrix[13]],
+      [cameraMatrix[2], cameraMatrix[6], cameraMatrix[10], cameraMatrix[14]],
+      [cameraMatrix[3], cameraMatrix[7], cameraMatrix[11], cameraMatrix[15]],
     ];
 
     dispatch(
@@ -76,19 +77,26 @@ export const GenerateImages = () => {
       const renderer = new WebGLRenderer({
         antialias: true,
       });
-      renderer.setSize(400, 400);
+      renderer.setSize(800, 800);
+      renderer.setClearColor(0xffffff, 1);
+
       setCameraTransforms(camera, renderer);
 
       dispatch(imagesSlice.actions.clearImages());
       points.forEach((point, index) => {
         //Move the camera to the point
-
         if (scene) {
-          const fileName = `image_${index}.png`;
+          const fileName = `image_${index
+            .toString()
+            .padStart(points.length.toString().length, "0")}.png`;
           camera.position.set(point.center.x, point.center.y, point.center.z);
+          //Y -> UP
+          //Z -> FORWARD
           camera.lookAt(point.dir.x, point.dir.y, point.dir.z);
           //Render the scene
           renderer.render(scene, camera);
+          camera.lookAt(point.dir.x * -1, point.dir.y * -1, point.dir.z * -1);
+
           addFrame(fileName, camera.matrix.toArray());
           //Save the image
           renderer.domElement.toBlob(

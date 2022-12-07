@@ -7,6 +7,7 @@ import { Controls } from "./Controls";
 import { LoadedModel } from "./LoadedModel";
 import { CapturePoints } from "./CapturePoints";
 import { GenerateImages } from "./GenerateImages";
+import { CamPathPoints } from "./CamPathPoints";
 
 export const ThreeDView = () => {
   const sceneRef = useRef<Scene>(null);
@@ -21,6 +22,7 @@ export const ThreeDView = () => {
     >
       <scene ref={sceneRef}>
         <Lights />
+        <CamPathPoints />
 
         <CapturePoints />
         <LoadedModel />

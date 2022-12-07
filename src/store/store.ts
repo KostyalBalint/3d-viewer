@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { menuSlice } from "./menuSlice";
 import { imagesSlice } from "./imagesSlice";
+import { camPathSlice } from "./camPathSlice";
 
 export const store = configureStore({
   reducer: {
     menu: menuSlice.reducer,
     images: imagesSlice.reducer,
+    camPath: camPathSlice.reducer,
   },
 });
 
