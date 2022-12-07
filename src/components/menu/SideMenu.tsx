@@ -31,6 +31,7 @@ export function SideMenu() {
   const captureSphereRadius = useAppSelector(
     (state) => state.menu.captureSphereRadius
   );
+  const showCamPoints = useAppSelector((state) => state.menu.showCamPoints);
 
   const setFileName = (fileName: string) => {
     dispatch(menuSlice.actions.setFileName(fileName));
@@ -86,6 +87,14 @@ export function SideMenu() {
         }}
         control={<Switch />}
         label="Show capture points"
+      />
+      <FormControlLabel
+        value={showCamPoints}
+        onChange={(event, value) => {
+          dispatch(menuSlice.actions.setShowCamPoints(value));
+        }}
+        control={<Switch />}
+        label="Show FOX model original cameras"
       />
 
       <Divider sx={{ my: 2 }} />

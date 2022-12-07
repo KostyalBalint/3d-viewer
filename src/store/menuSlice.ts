@@ -12,10 +12,10 @@ type MenuState = {
 };
 
 const initialState: MenuState = {
-  fileName: "ferrari.glb",
-  showBasePlane: true,
+  fileName: "fox.glb",
+  showBasePlane: false,
   showCapturePoints: false,
-  showCamPoints: false,
+  showCamPoints: true,
   numberOfCapturePoints: 20,
   captureSphereRadius: 5,
   isCapturing: false,

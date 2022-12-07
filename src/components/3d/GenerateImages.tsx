@@ -95,7 +95,9 @@ export const GenerateImages = () => {
           camera.lookAt(point.dir.x, point.dir.y, point.dir.z);
           //Render the scene
           renderer.render(scene, camera);
-          camera.lookAt(point.dir.x * -1, point.dir.y * -1, point.dir.z * -1);
+
+          //TODO: 1.st try: only the z is flipped
+          camera.lookAt(point.dir.x, point.dir.y, point.dir.z * -1);
 
           addFrame(fileName, camera.matrix.toArray());
           //Save the image

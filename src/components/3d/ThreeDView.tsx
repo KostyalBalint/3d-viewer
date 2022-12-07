@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import React, { useRef } from "react";
-import { Scene, sRGBEncoding } from "three";
+import { Scene, sRGBEncoding, Vector3 } from "three";
 import { Lights } from "./Lights";
 import { BasePlane } from "./BasePlane";
 import { Controls } from "./Controls";
@@ -31,6 +31,16 @@ export const ThreeDView = () => {
 
         <GenerateImages />
         <Controls />
+
+        <arrowHelper
+          args={[new Vector3(1, 0, 0), new Vector3(0, 0, 0), 1, 0xff0000]} //X -> Red
+        />
+        <arrowHelper
+          args={[new Vector3(0, 1, 0), new Vector3(0, 0, 0), 1, 0x00ff00]} //Y -> Green
+        />
+        <arrowHelper
+          args={[new Vector3(0, 0, 1), new Vector3(0, 0, 0), 1, 0x0000ff]} //Z -> Blue
+        />
       </scene>
     </Canvas>
   );
