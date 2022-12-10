@@ -12,10 +12,10 @@ type MenuState = {
 };
 
 const initialState: MenuState = {
-  fileName: "fox.glb",
-  showBasePlane: false,
+  fileName: "Fox.glb",
+  showBasePlane: true,
   showCapturePoints: false,
-  showCamPoints: true,
+  showCamPoints: false,
   numberOfCapturePoints: 20,
   captureSphereRadius: 5,
   isCapturing: false,

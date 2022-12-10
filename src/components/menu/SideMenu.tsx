@@ -94,7 +94,7 @@ export function SideMenu() {
           dispatch(menuSlice.actions.setShowCamPoints(value));
         }}
         control={<Switch />}
-        label="Show FOX model original cameras"
+        label="Show exported instant NGP cameras"
       />
 
       <Divider sx={{ my: 2 }} />

@@ -3,8 +3,6 @@ N
 src/components/NumberField.tsx,d/4/d401f6dbec3525c7bdf28e350f558af4ab46123f
 M
 src/components/hooks/hooks.ts,0/0/007bda8e444c6679ae8fafcf372c240e332cc133
-P
- src/components/CaptureButton.tsx,1/f/1ff82abce5809003e01e6224e07a66fdf75ef0fb
 ;
 src/App.tsx,8/3/835da56f32df714aaed6285a5b7fc3a7807851e4
 L

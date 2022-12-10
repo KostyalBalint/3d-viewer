@@ -1,17 +1,16 @@
 import { useAppSelector } from "../hooks/hooks";
-import { Euler, Matrix3, Matrix4, Vector3 } from "three";
+import { Euler, Matrix4 } from "three";
 import { MatrixHelper } from "./MatrixHelper";
 
 export const CamPathPoints = () => {
   const showCamPoints = useAppSelector((state) => state.menu.showCamPoints);
   const camPoints = useAppSelector((state) => state.images.transforms.frames);
-
-  const length = 0.4;
-  const hex = 0x0000ff;
+  const isCapturing = useAppSelector((state) => state.menu.isCapturing);
 
   return (
     <>
       {showCamPoints &&
+        !isCapturing &&
         camPoints.map((point) => {
           const mat = point.transform_matrix.reduce((a, b) => a.concat(b), []);
           let matrix = new Matrix4().set(
