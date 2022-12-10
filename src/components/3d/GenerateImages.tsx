@@ -30,23 +30,22 @@ export const GenerateImages = () => {
     renderer: WebGLRenderer
   ) => {
     const size = new Vector2();
-    renderer.getSize(size);
-    console.log(renderer);
+    renderer.getSize(size); // Size of the rendered images
     dispatch(
       imagesSlice.actions.setTransforms({
-        camera_angle_x: camera.fov * (Math.PI / 180),
-        camera_angle_y: camera.fov * (Math.PI / 180),
-        fl_x: size.x * (camera.getFocalLength() / 35),
-        fl_y: size.y * (camera.getFocalLength() / 35),
-        k1: 0,
+        camera_angle_x: camera.fov * (Math.PI / 180), //Camera fov in degrees
+        camera_angle_y: camera.fov * (Math.PI / 180), //Camera fov in degrees
+        fl_x: size.x * (camera.getFocalLength() / 35), //Focal length in pixels  (35 mm is the default three JS camera sensor size)
+        fl_y: size.y * (camera.getFocalLength() / 35), //Focal length in pixels
+        k1: 0, //Distortion coefficients - not used
         k2: 0,
         p1: 0,
         p2: 0,
-        cx: size.x / 2,
-        cy: size.y / 2,
-        w: size.x,
-        h: size.y,
-        aabb_scale: 4,
+        cx: size.x / 2, //Center of projection in pixels
+        cy: size.y / 2, //Center of projection in pixels
+        w: size.x, //Image width in pixels
+        h: size.y, //Image height in pixels
+        aabb_scale: 4, //Scale of the bounding box around the model, this will be the box, where the rays will be cast
       })
     );
   };
@@ -105,7 +104,7 @@ export const GenerateImages = () => {
 
           camera.updateMatrix();
 
-          addFrame(fileName, getCameraMatrixTransformd(camera));
+          addFrame(fileName, getCameraMatrixTransforms(camera));
           //Save the image
           renderer.domElement.toBlob(
             (blob) => {
@@ -131,17 +130,25 @@ export const GenerateImages = () => {
   return <></>;
 };
 
-function getCameraMatrixTransformd(camera: PerspectiveCamera): number[] {
+function getCameraMatrixTransforms(camera: PerspectiveCamera): number[] {
+  //Get the Three JS camera matrix
   let matrix = camera.matrix.clone();
 
+  //The matrix represents a rotation of -90 degrees about the x and y axes in 3D space
   const wordRotate = new Matrix4().makeRotationFromEuler(
     new Euler().set(-Math.PI / 2, -Math.PI / 2, 0, "ZYX")
   );
 
+  //Apply the world orientation
   matrix.premultiply(wordRotate.clone().invert()).multiply(wordRotate);
 
   const mtx = matrix.toArray();
 
+  //Rearrange the matrix columns to match the instant NGP convention
+  //Three JS to instant NGP
+  //X -> Z
+  //Y -> X
+  //Z -> Y
   return [
     mtx[4],
     mtx[5],
